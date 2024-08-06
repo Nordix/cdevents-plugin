@@ -37,11 +37,11 @@ public class BuildCDEvent {
         JobModel pipelineData = ModelBuilder.buildJobModel(run.getParent(), run, listener);
         LOGGER.log(Level.INFO, "Building PipelineRunStarted model for " + pipelineFullName);
 
-        PipelineRunStartedCDEvent event = new PipelineRunStartedCDEvent();
+        PipelinerunStartedCDEvent event = new PipelinerunStartedCDEvent();
         event.setSubjectId(run.getId());
         event.setSource(URI.create(run.getUrl()));
         event.setSubjectPipelineName(pipelineFullName);
-        event.setSubjectUrl(URI.create(run.getUrl()));
+        event.setSubjectUrl(URI.create(run.getUrl()).toString());
         event.setCustomData(pipelineData);
         event.setCustomDataContentType("application/json");
 
@@ -66,14 +66,14 @@ public class BuildCDEvent {
             errors = "Run was not able to produce a result.";
         }
 
-        PipelineRunFinishedCDEvent event = new PipelineRunFinishedCDEvent();
+        PipelinerunFinishedCDEvent event = new PipelinerunFinishedCDEvent();
 
         event.setSubjectId(run.getId());
         event.setSource(URI.create(run.getUrl()));
         event.setSubjectPipelineName(pipelineFullName);
         event.setCustomData(pipelineData);
         event.setCustomDataContentType("application/json");
-        event.setSubjectOutcome(outcome);
+        event.setSubjectOutcome(outcome.getOutcome());
         event.setSubjectErrors(errors);
 
         return CDEvents.cdEventAsCloudEvent(event);
@@ -84,7 +84,7 @@ public class BuildCDEvent {
         QueuedJobModel pipelineData = ModelBuilder.buildQueuedJobModel(item);
         LOGGER.log(Level.INFO, "Building PipelineRunQueued model for " + pipelineFullName);
 
-        PipelineRunQueuedCDEvent event = new PipelineRunQueuedCDEvent();
+        PipelinerunQueuedCDEvent event = new PipelinerunQueuedCDEvent();
         event.setSubjectId(String.valueOf(item.getId()));
         event.setSource(URI.create(item.task.getUrl()));
         event.setSubjectPipelineName(pipelineFullName);
@@ -99,13 +99,13 @@ public class BuildCDEvent {
         StageModel taskRunData = ModelBuilder.buildTaskModel(run, node);
         LOGGER.info("Building TaskRunStarted model for " + displayName);
 
-        TaskRunStartedCDEvent event = new TaskRunStartedCDEvent();
+        TaskrunStartedCDEvent event = new TaskrunStartedCDEvent();
 
         event.setSource(URI.create(run.getUrl()));
         event.setSubjectId(run.getId());
         event.setSubjectTaskName(displayName);
         event.setSubjectPipelineRunId(run.getId());
-        event.setSubjectPipelineRunSource(URI.create(run.getUrl()));
+        event.setSubjectPipelineRunSource(URI.create(run.getUrl()).toString());
         event.setCustomData(taskRunData);
         event.setCustomDataContentType("application/json");
 
@@ -129,16 +129,16 @@ public class BuildCDEvent {
 
         LOGGER.info("Building TaskRunFinished model for " + displayName);
 
-        TaskRunFinishedCDEvent event = new TaskRunFinishedCDEvent();
+        TaskrunFinishedCDEvent event = new TaskrunFinishedCDEvent();
         event.setSource(URI.create(run.getUrl()));
         event.setSubjectId(run.getId());
         event.setSubjectTaskName(displayName);
         event.setSubjectPipelineRunId(run.getId());
-        event.setSubjectPipelineRunSource(URI.create(run.getUrl()));
+        event.setSubjectPipelineRunSource(URI.create(run.getUrl()).toString());
         event.setCustomData(taskRunData);
         event.setCustomDataContentType("application/json");
 
-        event.setSubjectOutcome(outcome);
+        event.setSubjectOutcome(outcome.getOutcome());
         event.setSubjectErrors(errors);
 
         return CDEvents.cdEventAsCloudEvent(event);

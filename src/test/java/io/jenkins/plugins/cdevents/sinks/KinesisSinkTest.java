@@ -8,7 +8,7 @@ package io.jenkins.plugins.cdevents.sinks;
 import com.amazonaws.services.kinesis.AmazonKinesis;
 import com.amazonaws.services.kinesis.AmazonKinesisClientBuilder;
 import dev.cdevents.CDEvents;
-import dev.cdevents.events.PipelineRunStartedCDEvent;
+import dev.cdevents.events.PipelinerunStartedCDEvent;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.Plugin;
 import io.cloudevents.CloudEvent;
@@ -52,7 +52,7 @@ class KinesisSinkTest {
 
         /*when creating new object of any CDEvent type, the event will be initialized with
         context.id, context.type, context.version, context.timestamp and subject.type */
-        PipelineRunStartedCDEvent event = new PipelineRunStartedCDEvent();
+        PipelinerunStartedCDEvent event = new PipelinerunStartedCDEvent();
 
         /* set the required context fields to the PipelineRunStartedCDEvent */
         event.setSource(URI.create("http://localhost:8080/jenkins/job/PipelineTest/1/"));
@@ -60,7 +60,7 @@ class KinesisSinkTest {
         /* set the required subject fields to the PipelineRunStartedCDEvent */
         event.setSubjectId("1");
         event.setSubjectSource(URI.create("http://localhost:8080/jenkins/job/PipelineTest/1/"));
-        event.setSubjectUrl(URI.create("http://localhost:8080/jenkins/job/PipelineTest/1/"));
+        event.setSubjectUrl("http://localhost:8080/jenkins/job/PipelineTest/1/");
         event.setSubjectPipelineName("unittest");
 
         event.setCustomDataContentType("application/json");

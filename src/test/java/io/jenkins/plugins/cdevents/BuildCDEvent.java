@@ -60,7 +60,7 @@ class BuildCDEventTest {
             CloudEvent cloudEvent = BuildCDEvent.buildPipelineRunStartedModel(run, taskListener);
 
             assertEquals(Set.of("datacontenttype", "specversion", "id", "source", "time", "type"), cloudEvent.getAttributeNames());
-            assertEquals("dev.cdevents.pipelinerun.started.0.1.0", cloudEvent.getType());
+            assertEquals("dev.cdevents.pipelinerun.started.0.1.1", cloudEvent.getType());
             // assert that the JSON string returned by cloudEvent.getData().toString() contains "pipelineName": "TestJob1" in its key-value pairs
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(cloudEvent.getData().toBytes());

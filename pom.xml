@@ -36,7 +36,7 @@
         <!-- revision: Maps Jenkins plugin release to the cdevents SDK version in use. See VERSIONING.MD -->
         <revision>1</revision>
         <changelist>999999-SNAPSHOT</changelist>
-        <cdevents.version>0.1.2</cdevents.version>
+        <cdevents.version>0.3.1</cdevents.version>
         <gitHubRepo>jenkinsci/cdevents-plugin</gitHubRepo>
         <!-- https://www.jenkins.io/doc/developer/plugin-development/choosing-jenkins-baseline/ -->
         <!-- Baseline Jenkins version you use to build the plugin. Users must have this version or
@@ -154,6 +154,11 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>5.3.1</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cloudevents</groupId>
+            <artifactId>cloudevents-core</artifactId>
+            <version>4.0.0</version>
         </dependency>
     </dependencies>
 
